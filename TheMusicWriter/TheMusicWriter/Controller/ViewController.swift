@@ -13,6 +13,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    // Action/Variable to capture user's selected scale
+    // Refer to Scales Enum
+    // return the selected scale with a switch
+    
+    // Action/Variable to capture user's selected length of melody
+    
+    // Generate melody based on scale and length
+    
+    // Play button
 
 
 }
