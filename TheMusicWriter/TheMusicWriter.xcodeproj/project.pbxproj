@@ -101,8 +101,9 @@
 			children = (
 				0BF3F275260D5D20006D24D4 /* AppDelegate.swift */,
 				0BF3F277260D5D20006D24D4 /* SceneDelegate.swift */,
-				0BF3F279260D5D20006D24D4 /* ViewController.swift */,
-				0BF3F27B260D5D20006D24D4 /* Main.storyboard */,
+				0BF3F2B0260D5D62006D24D4 /* Model */,
+				0BF3F2A9260D5D55006D24D4 /* View */,
+				0BF3F2A8260D5D4A006D24D4 /* Controller */,
 				0BF3F27E260D5D22006D24D4 /* Assets.xcassets */,
 				0BF3F280260D5D22006D24D4 /* LaunchScreen.storyboard */,
 				0BF3F283260D5D22006D24D4 /* Info.plist */,
@@ -126,6 +127,29 @@
 				0BF3F299260D5D22006D24D4 /* Info.plist */,
 			);
 			path = TheMusicWriterUITests;
+			sourceTree = "<group>";
+		};
+		0BF3F2A8260D5D4A006D24D4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0BF3F279260D5D20006D24D4 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0BF3F2A9260D5D55006D24D4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0BF3F27B260D5D20006D24D4 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0BF3F2B0260D5D62006D24D4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
