@@ -23,6 +23,17 @@ class ViewController: UIViewController {
     // Generate melody based on scale and length
     
     // Play button
+    
+    /*
+     
+     TIMING
+     4/4
+     ____ ____ ____ ____   each "_" is a 16th, so in drum counting that is 1e+a 2e+a 3e+a 4e+a
+     r = rest
+     / = single note
+     + = overlapping note
+     
+     */
 
 
 }
