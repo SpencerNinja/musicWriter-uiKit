@@ -114,7 +114,7 @@ struct Scales {
     ]
     
     let scalesDictionary = [
-        "Random": ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Fb", "Gb", "G"],
+        "Random": ["Ab3", "A3", "Bb3", "B3", "C4", "Db4", "D4", "Eb4", "E4", "F4", "Fb4", "Gb4", "G4"],
         "C Major": ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5"],
         "Pentatonic": ["C4", "D4", "E4", "G4", "A4"],
         "Pentatonic2": ["A3", "C4", "D4", "E4", "G4"],

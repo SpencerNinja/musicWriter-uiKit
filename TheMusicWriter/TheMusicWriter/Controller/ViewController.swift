@@ -14,15 +14,19 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    // Action/Variable to capture user's selected scale
-    // Refer to Scales Enum
-    // return the selected scale with a switch
+    // LAYOUT
+    // Title: The Music Writer
     
-    // Action/Variable to capture user's selected length of melody
+    // heading: What scale of notes would you like to use?
+    // drop-down text box containing available scales
     
-    // Generate melody based on scale and length
+    // heading: How many notes do you want in your progression?
+    // drop-down text box with numbers 3-21
     
-    // Play button
+    // button: Generate my progression
+    
+    // button: Play (this button is grayed out until a progression is generated)
+    
     
     /*
      
@@ -34,7 +38,6 @@ class ViewController: UIViewController {
      + = overlapping note
      
      */
-
 
 }
 
