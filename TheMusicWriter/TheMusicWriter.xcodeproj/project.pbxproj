@@ -86,6 +86,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B39C3FF2642036900126C79 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0BF3F277260D5D20006D24D4 /* SceneDelegate.swift */,
+				0BF3F275260D5D20006D24D4 /* AppDelegate.swift */,
+				0BF3F280260D5D22006D24D4 /* LaunchScreen.storyboard */,
+				0BF3F283260D5D22006D24D4 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		0BF3F269260D5D20006D24D4 = {
 			isa = PBXGroup;
 			children = (
@@ -109,16 +120,13 @@
 		0BF3F274260D5D20006D24D4 /* TheMusicWriter */ = {
 			isa = PBXGroup;
 			children = (
-				0BF3F275260D5D20006D24D4 /* AppDelegate.swift */,
-				0BF3F277260D5D20006D24D4 /* SceneDelegate.swift */,
 				0BF3F2BE260D61B3006D24D4 /* Citations.swift */,
 				0BF3F2D8260D6347006D24D4 /* MasterPlan.swift */,
 				0BF3F2B0260D5D62006D24D4 /* Model */,
 				0BF3F2A9260D5D55006D24D4 /* View */,
 				0BF3F2A8260D5D4A006D24D4 /* Controller */,
 				0BF3F27E260D5D22006D24D4 /* Assets.xcassets */,
-				0BF3F280260D5D22006D24D4 /* LaunchScreen.storyboard */,
-				0BF3F283260D5D22006D24D4 /* Info.plist */,
+				0B39C3FF2642036900126C79 /* Supporting Files */,
 			);
 			path = TheMusicWriter;
 			sourceTree = "<group>";

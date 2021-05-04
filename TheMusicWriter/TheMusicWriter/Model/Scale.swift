@@ -136,15 +136,15 @@ struct Scales {
     var randomizedScale = [String]() // initialize empty array to store randomized scale
     
     // Generate the random Scale
-    mutating func randomizeProgression( length: Int, scale: [String:String] ) -> [String] {
-        var selectedScaleNotes = scale[userSelectedScale]
+    mutating func randomizeProgression( length: Int, scale: [String:Array<String>] ) -> [String] {
+        let selectedScaleNotes = scale[userSelectedScale]
         for _ in 1...length {
             let randomNote = selectedScaleNotes!.randomElement()
-            randomizedScale.append(randomNote)
+            randomizedScale.append(randomNote!)
         }
         return randomizedScale
     }
-    
+   
 }
 
 /*
