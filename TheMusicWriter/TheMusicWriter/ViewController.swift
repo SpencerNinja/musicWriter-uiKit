@@ -16,8 +16,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // Picker View where the user selects the scale
     @IBOutlet weak var scalePicker: UIPickerView!
     
-    // Create an instance of the list of scales (Array of strings)
-    var pickableScales: [String] = [String]()
+    // list of scale names (Array of strings)
+    var scaleNames: [String] = ["C Major", "Pentatonic", "Pentatonic2", "A Minor", "C Major Pentatonic", "A Minor Pentatonic", "Blues", "Harmonic Minor", "Altered Dominant", "Flamenco", "Hungarian Minor", "Persian", "Spanish", "Japanese", "Random"]
+    
     // Not sure why I need this, but I do
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -29,21 +30,28 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     // The number of rows of data
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        pickableScales.count
+        scaleNames.count
     }
     // The data to return for the row and component that's being passed in
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickableScales[row]
+        return scaleNames[row]
     }
+    // Variable to store scale id
+    var scaleID: Int = 0
     // Capture the picker view selection
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameters named row and component represent what was selected.
+        scaleID = row
+    }
+
+    // Assign scale IDs to scale names
+    var selectedScaleName: String {
+        return scaleNames[scaleID]
     }
     
     // Notes inside of each scale
     let scalesDictionary = [
-        "Random": ["Ab3", "A3", "Bb3", "B3", "C4", "Db4", "D4", "Eb4", "E4", "F4", "Fb4", "Gb4", "G4"],
         "C Major": ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5"],
         "Pentatonic": ["C4", "D4", "E4", "G4", "A4"],
         "Pentatonic2": ["A3", "C4", "D4", "E4", "G4"],
@@ -57,19 +65,20 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         "Hungarian Minor": ["B4", "Db4", "D4", "Fb4", "Gb4", "G4", "Bb4", "B4"],
         "Persian": ["C4", "Db4", "E4", "F4", "Gb4", "Ab4", "B4", "C5"],
         "Spanish": ["C4", "Db4", "E4", "F4", "G4", "Ab4", "Bb4", "C5"],
-        "Japanese": ["C4", "Db4", "F4", "G4", "Bb4", "C5"]
+        "Japanese": ["C4", "Db4", "F4", "G4", "Bb4", "C5"],
+        "Random": ["Ab3", "A3", "Bb3", "B3", "C4", "Db4", "D4", "Eb4", "E4", "F4", "Fb4", "Gb4", "G4"]
     ]
     
     // User selection: how many notes in progression?
     var lengthOfProgression = scaleLength
     // User selection: name of scale selected
-    var userSelectedScale = ""
+    lazy var userSelectedScale = scalesDictionary[selectedScaleName]
     // initialize empty array to store randomized scale
     var randomizedScale = [String]()
     
     // Generate the random Scale
     func randomizeProgression( length: Int, scale: [String:Array<String>] ) -> [String] {
-        let selectedScaleNotes = scale[userSelectedScale]
+        let selectedScaleNotes = userSelectedScale
         for _ in 1...length {
             let randomNote = selectedScaleNotes!.randomElement()
             randomizedScale.append(randomNote!)
@@ -90,8 +99,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         // Connect data:
         self.scalePicker.delegate = self
         self.scalePicker.dataSource = self
-        // Input the data into the array
-        pickableScales = ["C Major", "Pentatonic", "Pentatonic2", "A Minor", "C Major Pentatonic", "A Minor Pentatonic", "Blues", "Harmonic Minor", "Altered Dominant", "Flamenco", "Hungarian Minor", "Persian", "Spanish", "Japanese", "Random"]
+        // Input the data into the array (NO LONGER BEING INITIALIZED ON LOAD)
+//        scaleNames = ["C Major", "Pentatonic", "Pentatonic2", "A Minor", "C Major Pentatonic", "A Minor Pentatonic", "Blues", "Harmonic Minor", "Altered Dominant", "Flamenco", "Hungarian Minor", "Persian", "Spanish", "Japanese", "Random"]
     }
     
     
