@@ -38,9 +38,6 @@
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="scaleLength:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="xyP-7O-ADB"/>
-                                </connections>
                             </textField>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0uv-jR-ucr">
                                 <rect key="frame" x="0.0" y="370" width="414" height="162"/>
@@ -63,7 +60,7 @@
                                     <color key="titleColor" systemColor="systemGreenColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="generateMelody:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PRU-B8-5Wn"/>
+                                    <action selector="generateMelody:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kgk-MT-zTZ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="G, D, E, C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1c-ry-c11">
@@ -86,7 +83,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="generatedMelody" destination="h1c-ry-c11" id="3ye-lP-OWh"/>
+                        <outlet property="outputMelody" destination="h1c-ry-c11" id="3ye-lP-OWh"/>
+                        <outlet property="scaleLength" destination="aZ5-bb-8Wt" id="Aox-4M-wkc"/>
                         <outlet property="scalePicker" destination="0uv-jR-ucr" id="uw5-BU-Mgl"/>
                     </connections>
                 </viewController>

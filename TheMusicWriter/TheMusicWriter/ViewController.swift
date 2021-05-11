@@ -10,8 +10,7 @@ import UIKit
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // The label where the user inputs length of melody (integer)
-    @IBAction func scaleLength(_ sender: UITextField) {
-    }
+    @IBOutlet weak var scaleLength: UITextField!
     
     // Picker View where the user selects the scale
     @IBOutlet weak var scalePicker: UIPickerView!
@@ -70,16 +69,16 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     ]
     
     // User selection: how many notes in progression?
-    var lengthOfProgression = scaleLength
+    lazy var lengthOfProgression: Int = Int(scaleLength.text ?? "")!
     // User selection: name of scale selected
     lazy var userSelectedScale = scalesDictionary[selectedScaleName]
     // initialize empty array to store randomized scale
     var randomizedScale = [String]()
     
     // Generate the random Scale
-    func randomizeProgression( length: Int, scale: [String:Array<String>] ) -> [String] {
+    func randomizeProgression() -> [String] {
         let selectedScaleNotes = userSelectedScale
-        for _ in 1...length {
+        for _ in 1...lengthOfProgression {
             let randomNote = selectedScaleNotes!.randomElement()
             randomizedScale.append(randomNote!)
         }
@@ -88,10 +87,16 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     // The button to generate the melody based on scale and length selected
     @IBAction func generateMelody(_ sender: UIButton) {
+        let selectedScaleNotes = userSelectedScale
+        for _ in 1...lengthOfProgression {
+            let randomNote = selectedScaleNotes!.randomElement()
+            randomizedScale.append(randomNote!)
+        }
+        outputMelody.text = String(randomizedScale)
     }
     
     // The output of the generated melody
-    @IBOutlet weak var generatedMelody: UILabel!
+    @IBOutlet weak var outputMelody: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,8 +104,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         // Connect data:
         self.scalePicker.delegate = self
         self.scalePicker.dataSource = self
-        // Input the data into the array (NO LONGER BEING INITIALIZED ON LOAD)
-//        scaleNames = ["C Major", "Pentatonic", "Pentatonic2", "A Minor", "C Major Pentatonic", "A Minor Pentatonic", "Blues", "Harmonic Minor", "Altered Dominant", "Flamenco", "Hungarian Minor", "Persian", "Spanish", "Japanese", "Random"]
     }
     
     
