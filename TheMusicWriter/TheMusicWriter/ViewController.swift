@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     // The label where the user inputs length of melody (integer)
     @IBOutlet weak var scaleLength: UITextField!
@@ -42,6 +42,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameters named row and component represent what was selected.
         scaleID = row
+        // reset output melody
+        outputMelody.text = "Melody appears here"
+        randomizedScale = ""
     }
 
     // Assign scale IDs to scale names
@@ -73,26 +76,23 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // User selection: name of scale selected
     lazy var userSelectedScale = scalesDictionary[selectedScaleName]
     // initialize empty array to store randomized scale
-    var randomizedScale = [String]()
+    var randomizedScale = ""
     
     // Generate the random Scale
-    func randomizeProgression() -> [String] {
+    func randomizeProgression() -> String {
         let selectedScaleNotes = userSelectedScale
         for _ in 1...lengthOfProgression {
             let randomNote = selectedScaleNotes!.randomElement()
             randomizedScale.append(randomNote!)
+            randomizedScale.append(", ")
         }
         return randomizedScale
     }
     
     // The button to generate the melody based on scale and length selected
     @IBAction func generateMelody(_ sender: UIButton) {
-        let selectedScaleNotes = userSelectedScale
-        for _ in 1...lengthOfProgression {
-            let randomNote = selectedScaleNotes!.randomElement()
-            randomizedScale.append(randomNote!)
-        }
-        outputMelody.text = String(randomizedScale)
+        let melodyArray = randomizeProgression()
+        outputMelody.text = String(melodyArray)
     }
     
     // The output of the generated melody
@@ -104,8 +104,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         // Connect data:
         self.scalePicker.delegate = self
         self.scalePicker.dataSource = self
+        outputMelody.text = "Melody appears here"
     }
-    
     
     
     
