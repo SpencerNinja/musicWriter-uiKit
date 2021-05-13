@@ -18,6 +18,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // list of scale names (Array of strings)
     var scaleNames: [String] = ["C Major", "Pentatonic", "Pentatonic2", "A Minor", "C Major Pentatonic", "A Minor Pentatonic", "Blues", "Harmonic Minor", "Altered Dominant", "Flamenco", "Hungarian Minor", "Persian", "Spanish", "Japanese", "Random"]
     
+    // flag to signal if melody has already been generated
+    var generatedFlag = false
+    
     // Not sure why I need this, but I do
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -45,6 +48,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         // reset output melody
         outputMelody.text = "Melody appears here"
         randomizedScale = ""
+        lengthOfProgression = Int(scaleLength.text ?? "")!
+        generatedFlag = false
     }
 
     // Assign scale IDs to scale names
@@ -92,7 +97,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // The button to generate the melody based on scale and length selected
     @IBAction func generateMelody(_ sender: UIButton) {
         let melodyArray = randomizeProgression()
-        outputMelody.text = String(melodyArray)
+        if generatedFlag == false {
+            outputMelody.text = String(melodyArray)
+            generatedFlag = true
+        }
     }
     
     // The output of the generated melody
