@@ -6,6 +6,8 @@
 //
 
 import UIKit
+//import PlaygroundSupport
+import AudioToolbox
 
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
@@ -228,116 +230,174 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
 
 /*
+ 
+ ------------------------------------------------------------------------------------------
+ 
+ 
  VERSION 1.0
  
- MASTERPLAN
-     Titles:
-        - Melody Generator
-        - The Music Writer
-     
-     User process
-        1. User selects scale to use (Pentatonic, Blues, random)
-        2. User selects length of melody
-        3. User pushes "generate" button
-        4. User can listen to generated melody by hitting "Play My Tune" button
-        
-        (Include a note that User this app is for entertainment purposes only and user is responsible for checking that generated melody does not match any current song melodies.)
-
-     LAYOUT
-         Title: The Music Writer
-
-         heading: What scale of notes would you like to use?
-         drop-down text box containing available scales
-
-         heading: How many notes do you want in your progression?
-         drop-down text box with numbers 3-21
-
-         button: Generate my progression
-
-         button: Play (this button is grayed out until a progression is generated)
+    TITLE, USER PROCESS, LAYOUT, SCALES, SOUND
  
-    TIMING
-        4/4
-        ____ ____ ____ ____   each "_" is a 16th, so in drum counting that is 1e+a 2e+a 3e+a 4e+a
-        r = rest
-        / = single note
-        + = overlapping note
+         TITLE IDEAS
+            - Melody Generator
+            - The Music Writer
+         
+         USER PROCESS
+            1. User selects scale to use (Pentatonic, Blues, random)
+            2. User selects length of melody
+            3. User pushes "generate" button
+            4. User can listen to generated melody by hitting "Play My Tune" button
+            
+            (Include a note that User this app is for entertainment purposes only and user is responsible for checking that generated melody does not match any current song melodies.)
 
-  Scales
-     - C Major = C, D, E, F, G, A, B, C
-     - Pentatonic = C, D, E, G, A
-     - Pentatonic2 = A, C, D, E, G
-     - A Minor = A, B, C, D, E, F, G, A
-     - C Major Pentatonic = C, D, E, G, A
-     - A Minor Pentatonic = A, C, D, E, G
-     - Blues scale = A, C, D, D#, E, G, A
-     - Harmonic Minor Scale = C, D, Eb, F, G, Ab, B, C
-     - Altered Dominant Scale = C, Db, Eb, Fb, Gb, Ab, Bb
-     - Flamenco Scale = C, Db, E, F, G, Ab, B, C
-     - Hungarian Minor Scale = B, C#, D, E#, F#, G, A#, B
-     - Persian Scale = C, Db, E, F, Gb, Ab, B, C
-     - Spanish Scale = C, Db, E, F, G, Ab, Bb, C
-     - Japanese Scale = C, Db, F, G, Bb, C
+         LAYOUT
+             Title: The Music Writer
 
-  To match the emotions this is the list starting from C major.
-     - MOOD            NAME            ROOT        SCALE
-     - serious         Ionian          I            C-D-E-F-G-A-B-C
-     - sad             Dorian          II          D-E-F-G-A-B-C-D
-     - mystic          Phrygian        III            E-F-G-A-B-C-D-E
-     - harmonius       Lydian          IV            F-G-A-B-C-D-E-F
-     - happy           Mixolydian      V            G-A-B-C-D-E-F-G
-     - devout          Aeolian         VI            A-B-C-D-E-F-G-A
-     - angelical       Locrian         VII            B-C-D-E-F-G-A-B
- */
+             heading: What scale of notes would you like to use?
+             drop-down text box containing available scales
 
+             heading: How many notes do you want in your progression?
+             drop-down text box with numbers 3-21
 
+             button: Generate my progression
 
-/*
- NOTE.SWIFT
- # Function to determine how many notes are in a melody
- def melodyLength():
-     length = input("Please enter the how many notes are in the melody: ")
-     while length <= 0:
-         print("Invalid input.")
-         length = input("Please enter the how many notes are in the melody: ")
-     return length
+             button: Play (this button is grayed out until a progression is generated)
+        
+         SCALES
+            - C Major = C, D, E, F, G, A, B, C
+            - Pentatonic = C, D, E, G, A
+            - Pentatonic2 = A, C, D, E, G
+            - A Minor = A, B, C, D, E, F, G, A
+            - C Major Pentatonic = C, D, E, G, A
+            - A Minor Pentatonic = A, C, D, E, G
+            - Blues scale = A, C, D, D#, E, G, A
+            - Harmonic Minor Scale = C, D, Eb, F, G, Ab, B, C
+            - Altered Dominant Scale = C, Db, Eb, Fb, Gb, Ab, Bb
+            - Flamenco Scale = C, Db, E, F, G, Ab, B, C
+            - Hungarian Minor Scale = B, C#, D, E#, F#, G, A#, B
+            - Persian Scale = C, Db, E, F, Gb, Ab, B, C
+            - Spanish Scale = C, Db, E, F, G, Ab, Bb, C
+            - Japanese Scale = C, Db, F, G, Bb, C
+     
+ 
+ ------------------------------------------------------------------------------------------
+ 
+ 
+ VERSION 1.1
+ 
+    CALCULATIONS AND CONSTRAINTS ON MUSICAL PATTERNS
+        
+        PATTERNS
+            Triangle - Ascend
+                1-2-3-1-2-3
+            Triangle - Descend
+                3-2-1-3-2-1
+            Ladder - Safe Step - Ascend
+                1-1-2-2-3-3
+            Ladder - Safe Step - Descend
+                3-3-2-2-1-1
+            Ladder - Confident Step - Ascend
+                1-3-2-4-3-6-5
+            Ballad
+                1-1-1-2-2-2-3-3-3
+ 
+ 
+ ------------------------------------------------------------------------------------------
+ 
+ 
+ VERSION 1.2
+ 
+    TIMING AND MEASURES
+ 
+        TIMING
+            4/4
+            ____ ____ ____ ____   each "_" is a 16th, so in drum counting that is 1e+a 2e+a 3e+a 4e+a
+            r = rest
+            / = single note
+            + = overlapping note
+     
+         MEASURES
+              # Function to determine type of measure (2/2 2/4 4/4)
+              def PickMeasure():
+                  measure = input("Please enter the type of measure (2/2 2/4 3/4 4/4): ")
+                  while measure != "2/2" or measure != "2/4" or measure != "3/4" or measure != "4/4":
+                      print("Invalid input.")
+                      measure = input("Please enter the type of measure (2/2 2/4 3/4 4/4): ")
+                  return measure
 
- # Function to create a list of random notes
- def CreateRandomMelody():
-     lst = []
-     lstNotes = ListOfNotes()
-     size = melodyLength()
-     for i in range(size):
-         number = random.randrange(0, len(lstNotes))
-         note = lstNotes[number]
-         lst.append(note)
-     return lst
- */
+              # Function to show how many notes in a measure get a count
+              def noteInMeasure(measure):
+                  note = float(measure) * 4
+                  return note
 
+              # Function to print a measure
+              def printMeasure(measure, note):
+                  for i in range(8):  # half notes: 8 notes if 4/4
+                      print(note)
+                  pass
+ 
+ 
+ ------------------------------------------------------------------------------------------
+ 
 
+ VERSION 1.3
+ 
+    EMOTION SCALES AND PATTERNS
+  
+        SCALES
+          To match the emotions this is the list starting from C major.
+             - MOOD            NAME            ROOT        SCALE
+             - serious         Ionian          I            C-D-E-F-G-A-B-C
+             - sad             Dorian          II          D-E-F-G-A-B-C-D
+             - mystic          Phrygian        III            E-F-G-A-B-C-D-E
+             - harmonius       Lydian          IV            F-G-A-B-C-D-E-F
+             - happy           Mixolydian      V            G-A-B-C-D-E-F-G
+             - devout          Aeolian         VI            A-B-C-D-E-F-G-A
+             - angelical       Locrian         VII            B-C-D-E-F-G-A-B
+ 
+        PATTERNS
 
-/*
+ 
+ ------------------------------------------------------------------------------------------
+ 
+ 
+ VERSION 1.4
+ 
+    ACCOMPANIMENTS
+  
+        Guitar / Piano (Lead)
+ 
+        Guitar / Piano (Rhythm)
+ 
+        Bass
+ 
+        Drums
 
-MEASURE.SWIFT
+ 
+ ------------------------------------------------------------------------------------------
+ 
+ 
+ VERSION 1.5
+  
+    REDESIGN
+ 
+        NEW DESIGN
+        
+        SCREENS
+            Welcome & Logo page
+            How to Use App page(pop-up on first-use, info button after)
+                examples
+                demonstration
+            About page: scales, notes, progressions
+            FAQs page: credit to author, notice about checking against existing songs, our goal to revolutionize music writing
+            Music Generator Constraints page
+            Results page
+        APP RELEASE
+            Try to release November 2021
 
- # Function to determine type of measure (2/2 2/4 4/4)
- def PickMeasure():
-     measure = input("Please enter the type of measure (2/2 2/4 3/4 4/4): ")
-     while measure != "2/2" or measure != "2/4" or measure != "3/4" or measure != "4/4":
-         print("Invalid input.")
-         measure = input("Please enter the type of measure (2/2 2/4 3/4 4/4): ")
-     return measure
+ 
+ ------------------------------------------------------------------------------------------
 
- # Function to show how many notes in a measure get a count
- def noteInMeasure(measure):
-     note = float(measure) * 4
-     return note
-
- # Function to print a measure
- def printMeasure(measure, note):
-     for i in range(8):  # half notes: 8 notes if 4/4
-         print(note)
-     pass
  */
 
 
