@@ -1,0 +1,3 @@
+target 'TheMusicWriter' do
+pod 'MPSoundEngine', '~> 1.0'
+end
